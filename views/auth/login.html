@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/login-form" method="post">
+{% csrf_token %}
+	<label for="input_email">Email:</label>
+	<input name="email" id="input_email" type="text" />
+	<label for="input_pw">Password:</label>
+	<input name="pw" id="input_pw" type="password" />
+	<input value="Log in" type="submit" />
+</form>
+{% endblock%}

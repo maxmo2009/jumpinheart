@@ -9,7 +9,6 @@ ADMINS = (
 
 AUTH_PROFILE_MODULE = 'auth.UserProfile'
 
-
 MANAGERS = ADMINS
 
 DATABASES = {
