@@ -1,15 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
+<div id="signup_form">
 <form action="/signup-form" method="post">
-{% csrf_token %}
-	<label for="input_username">Username:</label>
-	<input type="text" name="username" id="input_username" />
-	<label for="input_email">Email:</label>
-	<input type="text" name="email" id="input_email" />
-	<label for="input_pw">Password:</label>
-	<input type="password" name="pw" id="input_pw" />
-	<label for="input_cpw">Confirm password:</label>
-	<input type="password" name="cpw" id="input_cpw" />
-	<input type="submit" value="Sign up" />
-</form>
+	{% csrf_token %}
+	<div>
+		<label for="input_username">Username:</label>
+		<input type="text" name="username" id="input_username" />
+	</div>
+	<div>
+		<label for="input_email">Email:</label>
+		<input type="text" name="email" id="input_email" />
+	</div>
+	<div>
+		<label for="input_pw">Password:</label>
+		<input type="password" name="pw" id="input_pw" />
+	</div>
+	<div>
+		<label for="input_cpw">Confirm password:</label>
+		<input type="password" name="cpw" id="input_cpw" />
+	</div>
+	<div>
+		<input type="submit" value="Sign up" />
+	</div>
+	</form>
+</div>
 {% endblock %}

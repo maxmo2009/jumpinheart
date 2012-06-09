@@ -3,8 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
+from django.contrib.auth.forms import UserCreationForm
 def signup(request):
-    return render_to_response('auth/signup.html', {}, context_instance=RequestContext(request))
+	form = UserCreationForm()    
+	return render_to_response('auth/signup.html', {}, context_instance=RequestContext(request))
 
 def signup_form(request):
 	username = request.POST['username']

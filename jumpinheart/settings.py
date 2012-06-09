@@ -1,4 +1,15 @@
 #Django settings for jumpinheart project.
+import os
+def GetParentPath(strPath):
+	if not strPath:
+		return None
+  
+	lsPath = os.path.split(strPath)
+	if lsPath[1]:
+		return lsPath[0]
+  
+	lsPath = os.path.split(lsPath[0])
+	return lsPath[0]
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -65,10 +76,11 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL =  GetParentPath(os.path.dirname(__file__)) + '/static'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+	GetParentPath(os.path.dirname(__file__)) + '/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -108,7 +120,7 @@ ROOT_URLCONF = 'jumpinheart.urls'
 WSGI_APPLICATION = 'jumpinheart.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "/home/peterchou/Projects/jumpinheart/views",
+	os.path.dirname(__file__) + '/../views',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -127,6 +139,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'auth',
 	'index',
+	'django.contrib.staticfiles',
 )
 
 # A sample logging configuration. The only tangible logging
