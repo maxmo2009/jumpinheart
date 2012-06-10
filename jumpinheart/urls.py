@@ -14,9 +14,11 @@ urlpatterns = patterns('',
 
 	url(r'^signup$', 'auth.views.signup'),
 	url(r'^signup-form$', 'auth.views.signup_form'),
-	url(r'^$', 'index.views.index'),
+	url(r'^$', 'stories.views.index'),
 	url(r'^logout$', 'auth.views.logout_view'),
 	url(r'^login$', 'auth.views.login_view'),
 	url(r'^login-form$', 'auth.views.login_form'),
+	url(r'^check-username$', 'auth.views.check_username'),
+	url(r'^check-email$', 'auth.views.check_email'),
     # url(r'^admin/', include(admin.site.urls)),
 )
