@@ -37,14 +37,6 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
 function check_username(input){
   username = input.value;
   var label = document.getElementById("label-username");
-  if (!/^[a-zA-Z0-9_-]*$/.test(username)){
-	label.innerHTML = "User name can only contain a-Z, 0-9, _ and -";
-	return;
-  }
-  if (username.length<2 || username.length>30){
-    label.innerHTML = "User name must contain 2-30 characters!";
-	return;
-  } 
   var request = $.ajax({
     url: "/check-username",
     type: "POST",
@@ -53,12 +45,17 @@ function check_username(input){
   }); 
 
   request.done(function(msg){
-    if(msg == "ok"){
+    if(msg == "OK"){
       label.innerHTML = "OK";
-    }else if(msg == "not ok"){
-      label.innerHTML = "NOT OK";
+    }else if(msg == "syntax error"){
+      label.innerHTML = "User name must contain a-z, A-Z, 0-9, - and _";
+    }else if(msg == "length error"){
+      label.innerHTML = "User name can only have 2-30 characters";
+    }else if(msg == "duplicate error"){
+      label.innerHTML = "The user name has been token";
     }
   });
+  
   request.fail(function(jqXHR, textStatus){
     label.innerHTML = "Connection error";
   });

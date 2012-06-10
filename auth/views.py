@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
+import re
 def signup(request):
 	form = UserCreationForm()    
 	return render_to_response('auth/signup.html', {}, context_instance=RequestContext(request))
@@ -47,14 +48,19 @@ def check_username(request):
   if request.is_ajax():
     if request.method == 'POST':
       username = request.POST['username']
-	  if len(username)>30 or len(username)<2
-	    return HttpResponse('too long')
-	  
+      p = re.compile('[a-zA-Z0-9_-]+')
+      m = p.match(username)
+      if m is None:
+     	return HttpResponse('syntax error')#the user name contains improper letters
+
+      if len(username)>30 or len(username)<2:
+	    return HttpResponse('length error')#the user name is too long or too short
+
       try:
         user = User.objects.get(username=username)
-        return HttpResponse('not ok')
+        return HttpResponse('duplicate error')#the user name is duplicate
       except User.DoesNotExist:
-        return HttpResponse('ok')
+        return HttpResponse('OK')#the user name is OK
 def check_email(request):
   if request.is_ajax():
     if request.method == 'POST':
