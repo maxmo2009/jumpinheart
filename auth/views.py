@@ -48,14 +48,11 @@ def check_username(request):
   if request.is_ajax():
     if request.method == 'POST':
       username = request.POST['username']
-      p = re.compile('[a-zA-Z0-9_-]+')
-      m = p.match(username)
-      if m is None:
-     	return HttpResponse('syntax error')#the user name contains improper letters
-
       if len(username)>30 or len(username)<2:
 	    return HttpResponse('length error')#the user name is too long or too short
 
+      if not full_match(username, '[a-zA-Z0-9_-]+'):
+     	return HttpResponse('syntax error')#the user name contains improper letters
       try:
         user = User.objects.get(username=username)
         return HttpResponse('duplicate error')#the user name is duplicate
@@ -71,3 +68,10 @@ def check_email(request):
       except User.DoesNotExist:
 	    return HttpResponse('ok')
 
+def full_match(string, restr):
+  p = re.compile(restr)
+  for i in range(0, len(string)):
+    m = p.match(string, i)
+    if m is None:
+	  return False
+  return True
