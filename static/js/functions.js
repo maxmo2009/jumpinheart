@@ -103,8 +103,7 @@ function check_pw(input){
   var pw_input = document.getElementById("register-password");
   if (pw.length > 32 || pw.length < 6){
     label.innerHTML = "Password can only have 6-32 characters";
-    pw_input.focus();
-    pw_input.select();
+    window.setTimeout(function(){ input.focus(); }, 0);
     return;
   }else{
     label.innerHTML = "";
